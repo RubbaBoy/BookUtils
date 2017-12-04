@@ -1,0 +1,46 @@
+################################################################################################################
+#   ____              _    _    _ _   _ _       _             _____       _     _           ____               #
+#  |  _ \            | |  | |  | | | (_) |     | |           |  __ \     | |   | |         |  _ \              #
+#  | |_) | ___   ___ | | _| |  | | |_ _| |___  | |__  _   _  | |__) |   _| |__ | |__   __ _| |_) | ___  _   _  #
+#  |  _ < / _ \ / _ \| |/ / |  | | __| | / __| | '_ \| | | | |  _  / | | | '_ \| '_ \ / _` |  _ < / _ \| | | | #
+#  | |_) | (_) | (_) |   <| |__| | |_| | \__ \ | |_) | |_| | | | \ \ |_| | |_) | |_) | (_| | |_) | (_) | |_| | #
+#  |____/ \___/ \___/|_|\_\\____/ \__|_|_|___/ |_.__/ \__, | |_|  \_\__,_|_.__/|_.__/ \__,_|____/ \___/ \__, | #
+#                                                      __/ |                                             __/ | #
+#                                                     |___/                                             |___/  #
+################################################################################################################
+
+# message: All the messages shown to the player. If these values are deleted, the plugin will use
+#           the default values hard-coded in the plugin.
+
+messages:
+  # The help related messages
+  help:
+    bookexport: 'cUsage: /bookexport <file_name> <format> [pdf options]'
+    bookimport: '&cUsage: /bookimport <file name with extension> <title> <author>'
+    yes_or_no: '&cThird and fourth argument must be &6yes &cor &6no'
+    bookmodify: '&cUsage: /bookmodify <addpage|removepage|trim|combine|setauthor|settitle|unsign|setoriginal> [amount]'
+    pdf_options: '&cPDF Option usage: &c/bookexport <file_name> pdf <use minecraft font: yes|no> <print in color: yes|no> <font size>'
+  # The messages giving general information to the player
+  info:
+    pdf_success: '&aSuccessfully written to PDF!'
+    pdf_fail: '&cError writing to PDF!'
+    txt_success: '&aSuccessfully written to TXT file!'
+    txt_fail: '&cError writing to TXT file'
+    # %s replaced with the file name
+    failed_import: '&cFailed the import of %s'
+    # %s replaced with the file name
+    success_import: '&aSuccessfully imported %s'
+  # Messages giving the player an error message
+  error:
+    amount: '&cError: Option value must be an integer over zero in this command'
+    option_string: '&cError: Option must be a string'
+    book_offhand: '&cError: You must have the book in your offhand to combine with the one in your main hand'
+    amount_over_page: '&cError: The page you want to remove must be less than or equal to the pages in the book'
+    # %s replaced with "a string" or "an integer"
+    needs_option: '&cError: This command requires an option of %s'
+    fontsize: '&cError: Fifth argument must be a whole integer above 0'
+    players_only: '&cFor players only!'
+    hold_book: '&cYou must be holding a book for this command to work!'
+    unsupported_format: '&cError: Unsupported format!'
+    no_permission: '&cError: You are not permitted to do this command!'
+    max_page_limit: '&cError: You can not unsign books over 50 pages, because modifying them/resigning them causes clients to crash.'

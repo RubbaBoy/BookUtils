@@ -1,0 +1,26 @@
+name: BookUtils
+main: com.uddernetworks.bookutils.main.Main
+description: Allows you to import, export, and modify books
+website: http://www.uddernetworks.com/
+author: RubbaBoy
+version: 1.0
+commands:
+   bookexport:
+      description: Saves a book to .txt of .pdf format
+      usage: /bookexport <file_name> <format>
+   bookmodify:
+      description: Allows you to modify a book
+      usage: /bookmodify <addpage|removepage|trim|combine|setauthor|settitle|unsign|setoriginal> [options]
+   bookimport:
+      description: Allows you to import a book from a .txt or .pdf document
+      usage: /bookimport <file_name> <title> <author>
+permissions:
+   bu.bookexport:
+      description: Allows the player to export books to text
+      default: op
+   bu.bookmodify:
+      description: Allows the player to do the book modify commands
+      default: op
+   bu.bookimport:
+      description: Allows the player to import books from text
+      default: op
