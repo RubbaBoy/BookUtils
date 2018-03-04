@@ -19,6 +19,7 @@ public class TXTManager {
 
     public boolean writeTXT() {
         try {
+            new File("plugins", "SavedBooks").mkdirs();
             Files.write(Paths.get("plugins" + File.separator + "SavedBooks" + File.separator + name + ".txt"), contents, Charset.forName("UTF-8"));
         } catch (IOException e) {
             e.printStackTrace();

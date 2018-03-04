@@ -3,7 +3,7 @@ main: com.uddernetworks.bookutils.main.Main
 description: Allows you to import, export, and modify books
 website: http://www.uddernetworks.com/
 author: RubbaBoy
-version: 1.0
+version: 1.3
 commands:
    bookexport:
       description: Saves a book to .txt of .pdf format

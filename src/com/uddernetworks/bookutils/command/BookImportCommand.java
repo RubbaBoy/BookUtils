@@ -6,18 +6,21 @@ import com.uddernetworks.bookutils.main.Main;
 import com.uddernetworks.bookutils.utils.ArgumentUtil;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.chat.ComponentSerializer;
-import net.minecraft.server.v1_11_R1.IChatBaseComponent;
+import net.minecraft.server.v1_12_R1.ChatBaseComponent;
+import net.minecraft.server.v1_12_R1.IChatBaseComponent;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.craftbukkit.v1_11_R1.inventory.CraftMetaBook;
+import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftMetaBook;
+import org.bukkit.craftbukkit.v1_12_R1.util.CraftChatMessage;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class BookImportCommand implements CommandExecutor {
@@ -37,19 +40,17 @@ public class BookImportCommand implements CommandExecutor {
                     if (args.length == 3) {
                         String filename = args[0];
                         ItemStack book = new ItemStack(Material.WRITTEN_BOOK);
-                        BookMeta bookMeta = (BookMeta) book.getItemMeta();
-                        List<IChatBaseComponent> pages;
-                        try {
-                            pages = (List<IChatBaseComponent>) CraftMetaBook.class.getDeclaredField("pages").get(bookMeta);
-                        } catch (ReflectiveOperationException ex) {
-                            ex.printStackTrace();
-                            pages = new ArrayList<>();
-                        }
+                        CraftMetaBook bookMeta = (CraftMetaBook) book.getItemMeta();
+                        List<IChatBaseComponent> pages = new ArrayList<>();
+
                         if (filename.endsWith(".txt")) {
                             TXTImport txtImport = new TXTImport(filename, pages);
                             if (txtImport.importFile()) {
                                 bookMeta.setTitle(args[1].equals("%auto%") ? filename.substring(0, filename.length() - 4) : args[1]);
                                 bookMeta.setAuthor(args[2]);
+
+                                bookMeta.pages = pages;
+
                                 book.setItemMeta(bookMeta);
                                 player.getInventory().setItemInMainHand(book);
 
@@ -60,7 +61,13 @@ public class BookImportCommand implements CommandExecutor {
                         } else if (filename.endsWith(".pdf")) {
                             try {
                                 PDFManager pdfManager = new PDFManager(filename);
-                                ArrayList<String> list = TXTImport.addLinebreaks(pdfManager.readPDF());
+                                String pdf = pdfManager.readPDF();
+                                if (pdf == null) {
+                                    player.sendMessage(MessageEnum.FAILED_IMPORT.getMessage());
+                                    return true;
+                                }
+
+                                ArrayList<String> list = TXTImport.addLinebreaks(pdf);
                                 pages.clear();
                                 for (String string : list) {
                                     IChatBaseComponent page = IChatBaseComponent.ChatSerializer.a(ComponentSerializer.toString(new TextComponent(string)));

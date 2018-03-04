@@ -250,16 +250,15 @@ public class PDFManager {
     }
 
     public String readPDF() throws IOException {
-        PDDocument document = null;
-        try {
-            File file = new File("plugins" + File.separator + "SavedBooks" + File.separator + this.name);
-            document = PDDocument.load(file);
+        File file = new File("plugins" + File.separator + "SavedBooks" + File.separator + this.name);
+        if (!file.exists()) return null;
+
+        new File("plugins", "SavedBooks").mkdirs();
+        try (PDDocument document = PDDocument.load(file)) {
 
             PDFTextStripper pdfStripper = new PDFTextStripper();
 
             return pdfStripper.getText(document);
-        } finally {
-            if (document != null) document.close();
         }
     }
 
